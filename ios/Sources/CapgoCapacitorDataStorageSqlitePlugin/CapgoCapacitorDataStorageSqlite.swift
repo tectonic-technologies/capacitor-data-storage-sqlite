@@ -136,6 +136,29 @@ enum CapgoCapacitorDataStorageSqliteError: Error {
         }
     }
 
+    @objc func setMany(_ values: [Data]) throws {
+        if values.isEmpty {
+            return
+        }
+        if mDb != nil {
+            do {
+                try mDb?.setMany(values: values)
+                return
+            } catch StorageHelperError.setkey(let message) {
+                throw CapgoCapacitorDataStorageSqliteError
+                .failed(message: message)
+            } catch let error {
+                let msg = error.localizedDescription
+                throw CapgoCapacitorDataStorageSqliteError
+                .failed(message: msg)
+            }
+        } else {
+            let message = "No database connection"
+            throw CapgoCapacitorDataStorageSqliteError
+            .failed(message: message)
+        }
+    }
+
     // MARK: - get
 
     @objc func get(_ name: String) throws -> String {
@@ -163,6 +186,33 @@ enum CapgoCapacitorDataStorageSqliteError: Error {
                 let msg = error.localizedDescription
                 throw CapgoCapacitorDataStorageSqliteError
                 .failed(message: msg)
+            }
+        } else {
+            let message = "No database connection"
+            throw CapgoCapacitorDataStorageSqliteError
+            .failed(message: message)
+        }
+    }
+
+    @objc func getMany(_ keys: [String]) throws -> [[String: String]] {
+        if keys.isEmpty {
+            return []
+        }
+        if mDb != nil {
+            do {
+                let dataList = try mDb?.getMany(keys: keys) ?? []
+                var retArray: [[String: String]] = []
+                for data in dataList {
+                    let entry = ["key": data.name ?? "", "value": data.value ?? ""]
+                    retArray.append(entry)
+                }
+                return retArray
+            } catch StorageHelperError.getKeysValues(let message) {
+                throw CapgoCapacitorDataStorageSqliteError
+                .failed(message: message)
+            } catch let error {
+                throw CapgoCapacitorDataStorageSqliteError
+                .failed(message: error.localizedDescription)
             }
         } else {
             let message = "No database connection"

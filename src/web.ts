@@ -5,6 +5,8 @@ import type {
   capDataStorageOptions,
   capDataStorageResult,
   capFilterStorageOptions,
+  capGetManyOptions,
+  capSetManyOptions,
   capKeysResult,
   capKeysValuesResult,
   capTablesResult,
@@ -95,6 +97,50 @@ export class CapgoCapacitorDataStorageSqliteWeb extends WebPlugin implements Cap
     } catch (err: any) {
       return Promise.reject(`Get: ${err.message}`);
     }
+  }
+  async setMany(options: capSetManyOptions): Promise<void> {
+    const values = options?.values;
+    if (!Array.isArray(values)) {
+      return Promise.reject('SetMany: Must provide values array');
+    }
+    for (const entry of values) {
+      if (entry == null || typeof entry !== 'object') {
+        return Promise.reject('SetMany: Each entry must be an object');
+      }
+      const key = entry.key;
+      const value = entry.value;
+      if (key == null || typeof key != 'string') {
+        return Promise.reject('SetMany: Each entry must provide key as string');
+      }
+      if (value == null || typeof value != 'string') {
+        return Promise.reject('SetMany: Each entry must provide value as string');
+      }
+      const data: Data = new Data();
+      data.name = key;
+      data.value = value;
+      try {
+        await this.mDb.set(data);
+      } catch (err: any) {
+        return Promise.reject(`SetMany: ${err.message}`);
+      }
+    }
+    return Promise.resolve();
+  }
+  async getMany(options: capGetManyOptions): Promise<capKeysValuesResult> {
+    const keys = options?.keys;
+    if (!Array.isArray(keys) || keys.some((key) => typeof key !== 'string')) {
+      return Promise.reject('GetMany: Must provide keys array of strings');
+    }
+    const ret: any[] = [];
+    for (const key of keys) {
+      try {
+        const data: Data = await this.mDb.get(key);
+        ret.push({ key, value: data?.value != null ? data.value : '' });
+      } catch (err: any) {
+        return Promise.reject(`GetMany: ${err.message ?? err}`);
+      }
+    }
+    return Promise.resolve({ keysvalues: ret });
   }
   async remove(options: capDataStorageOptions): Promise<void> {
     const key: string = options.key;
