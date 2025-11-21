@@ -1,0 +1,950 @@
+{
+  "api": {
+    "name": "CapgoCapacitorDataStorageSqlitePlugin",
+    "slug": "capgocapacitordatastoragesqliteplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "openStore",
+        "signature": "(options: capOpenStorageOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capOpenStorageOptions",
+            "type": "capOpenStorageOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capOpenStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<void>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Open a store",
+        "complexTypes": [
+          "capOpenStorageOptions"
+        ],
+        "slug": "openstore"
+      },
+      {
+        "name": "closeStore",
+        "signature": "(options: capStorageOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capStorageOptions",
+            "type": "capStorageOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<void>"
+          },
+          {
+            "name": "since",
+            "text": "3.0.0"
+          }
+        ],
+        "docs": "Close the Store",
+        "complexTypes": [
+          "capStorageOptions"
+        ],
+        "slug": "closestore"
+      },
+      {
+        "name": "isStoreOpen",
+        "signature": "(options: capStorageOptions) => Promise<capDataStorageResult>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capStorageOptions",
+            "type": "capStorageOptions"
+          }
+        ],
+        "returns": "Promise<capDataStorageResult>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<capDataStorageResult>"
+          },
+          {
+            "name": "since",
+            "text": "3.0.0"
+          }
+        ],
+        "docs": "Check if the Store is opened",
+        "complexTypes": [
+          "capDataStorageResult",
+          "capStorageOptions"
+        ],
+        "slug": "isstoreopen"
+      },
+      {
+        "name": "isStoreExists",
+        "signature": "(options: capStorageOptions) => Promise<capDataStorageResult>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capStorageOptions",
+            "type": "capStorageOptions"
+          }
+        ],
+        "returns": "Promise<capDataStorageResult>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<capDataStorageResult>"
+          },
+          {
+            "name": "since",
+            "text": "3.0.0"
+          }
+        ],
+        "docs": "Check if the Store exists",
+        "complexTypes": [
+          "capDataStorageResult",
+          "capStorageOptions"
+        ],
+        "slug": "isstoreexists"
+      },
+      {
+        "name": "deleteStore",
+        "signature": "(options: capOpenStorageOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capOpenStorageOptions",
+            "type": "capOpenStorageOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capOpenStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<void>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Delete a store",
+        "complexTypes": [
+          "capOpenStorageOptions"
+        ],
+        "slug": "deletestore"
+      },
+      {
+        "name": "setTable",
+        "signature": "(options: capTableStorageOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capTableStorageOptions",
+            "type": "capTableStorageOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capTableStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<void>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Set or Add a table to an existing store",
+        "complexTypes": [
+          "capTableStorageOptions"
+        ],
+        "slug": "settable"
+      },
+      {
+        "name": "set",
+        "signature": "(options: capDataStorageOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capDataStorageOptions",
+            "type": "capDataStorageOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capDataStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<void>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Store a data with given key and value",
+        "complexTypes": [
+          "capDataStorageOptions"
+        ],
+        "slug": "set"
+      },
+      {
+        "name": "get",
+        "signature": "(options: capDataStorageOptions) => Promise<capValueResult>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capDataStorageOptions",
+            "type": "capDataStorageOptions"
+          }
+        ],
+        "returns": "Promise<capValueResult>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capDataStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<capValueResult>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Retrieve a data value for a given data key",
+        "complexTypes": [
+          "capValueResult",
+          "capDataStorageOptions"
+        ],
+        "slug": "get"
+      },
+      {
+        "name": "remove",
+        "signature": "(options: capDataStorageOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capDataStorageOptions",
+            "type": "capDataStorageOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capDataStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<void>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Remove a data with given key",
+        "complexTypes": [
+          "capDataStorageOptions"
+        ],
+        "slug": "remove"
+      },
+      {
+        "name": "clear",
+        "signature": "() => Promise<void>",
+        "parameters": [],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "returns",
+            "text": "Promise<void>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Clear the Data Store (delete all keys)",
+        "complexTypes": [],
+        "slug": "clear"
+      },
+      {
+        "name": "iskey",
+        "signature": "(options: capDataStorageOptions) => Promise<capDataStorageResult>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capDataStorageOptions",
+            "type": "capDataStorageOptions"
+          }
+        ],
+        "returns": "Promise<capDataStorageResult>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capDataStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<capDataStorageResult>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Check if a data key exists",
+        "complexTypes": [
+          "capDataStorageResult",
+          "capDataStorageOptions"
+        ],
+        "slug": "iskey"
+      },
+      {
+        "name": "keys",
+        "signature": "() => Promise<capKeysResult>",
+        "parameters": [],
+        "returns": "Promise<capKeysResult>",
+        "tags": [
+          {
+            "name": "returns",
+            "text": "Promise<capKeysResult>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Get the data key list",
+        "complexTypes": [
+          "capKeysResult"
+        ],
+        "slug": "keys"
+      },
+      {
+        "name": "values",
+        "signature": "() => Promise<capValuesResult>",
+        "parameters": [],
+        "returns": "Promise<capValuesResult>",
+        "tags": [
+          {
+            "name": "returns",
+            "text": "Promise<capValuesResult>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Get the data value list",
+        "complexTypes": [
+          "capValuesResult"
+        ],
+        "slug": "values"
+      },
+      {
+        "name": "filtervalues",
+        "signature": "(options: capFilterStorageOptions) => Promise<capValuesResult>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capFilterStorageOptions",
+            "type": "capFilterStorageOptions"
+          }
+        ],
+        "returns": "Promise<capValuesResult>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capFilterStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<capValuesResult>"
+          },
+          {
+            "name": "since",
+            "text": "2.4.2"
+          }
+        ],
+        "docs": "Get the data value list for filter keys",
+        "complexTypes": [
+          "capValuesResult",
+          "capFilterStorageOptions"
+        ],
+        "slug": "filtervalues"
+      },
+      {
+        "name": "keysvalues",
+        "signature": "() => Promise<capKeysValuesResult>",
+        "parameters": [],
+        "returns": "Promise<capKeysValuesResult>",
+        "tags": [
+          {
+            "name": "returns",
+            "text": "Promise<capKeysValuesResult>"
+          },
+          {
+            "name": "since",
+            "text": "0.0.1"
+          }
+        ],
+        "docs": "Get the data key/value pair list",
+        "complexTypes": [
+          "capKeysValuesResult"
+        ],
+        "slug": "keysvalues"
+      },
+      {
+        "name": "isTable",
+        "signature": "(options: capTableStorageOptions) => Promise<capDataStorageResult>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capTableStorageOptions",
+            "type": "capTableStorageOptions"
+          }
+        ],
+        "returns": "Promise<capDataStorageResult>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capTableStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<capDataStorageResult>"
+          },
+          {
+            "name": "since",
+            "text": "3.0.0"
+          }
+        ],
+        "docs": "Check if a table exists",
+        "complexTypes": [
+          "capDataStorageResult",
+          "capTableStorageOptions"
+        ],
+        "slug": "istable"
+      },
+      {
+        "name": "tables",
+        "signature": "() => Promise<capTablesResult>",
+        "parameters": [],
+        "returns": "Promise<capTablesResult>",
+        "tags": [
+          {
+            "name": "returns",
+            "text": "Promise<capTablesResult>"
+          },
+          {
+            "name": "since",
+            "text": "3.0.0"
+          }
+        ],
+        "docs": "Get the table list for the current store",
+        "complexTypes": [
+          "capTablesResult"
+        ],
+        "slug": "tables"
+      },
+      {
+        "name": "deleteTable",
+        "signature": "(options: capTableStorageOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capTableStorageOptions",
+            "type": "capTableStorageOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capTableStorageOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<void>"
+          },
+          {
+            "name": "since",
+            "text": "3.0.0"
+          }
+        ],
+        "docs": "Delete a table",
+        "complexTypes": [
+          "capTableStorageOptions"
+        ],
+        "slug": "deletetable"
+      },
+      {
+        "name": "importFromJson",
+        "signature": "(options: capStoreImportOptions) => Promise<capDataStorageChanges>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "capStoreImportOptions"
+          }
+        ],
+        "returns": "Promise<capDataStorageChanges>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "jsonstring string"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<capDataStorageChanges>"
+          },
+          {
+            "name": "since",
+            "text": "3.2.0"
+          }
+        ],
+        "docs": "Import a database From a JSON",
+        "complexTypes": [
+          "capDataStorageChanges",
+          "capStoreImportOptions"
+        ],
+        "slug": "importfromjson"
+      },
+      {
+        "name": "isJsonValid",
+        "signature": "(options: capStoreImportOptions) => Promise<capDataStorageResult>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "capStoreImportOptions"
+          }
+        ],
+        "returns": "Promise<capDataStorageResult>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "jsonstring string"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<capDataStorageResult>"
+          },
+          {
+            "name": "since",
+            "text": "3.2.0"
+          }
+        ],
+        "docs": "Check the validity of a JSON Object",
+        "complexTypes": [
+          "capDataStorageResult",
+          "capStoreImportOptions"
+        ],
+        "slug": "isjsonvalid"
+      },
+      {
+        "name": "exportToJson",
+        "signature": "() => Promise<capStoreJson>",
+        "parameters": [],
+        "returns": "Promise<capStoreJson>",
+        "tags": [
+          {
+            "name": "returns",
+            "text": "Promise<capStoreJson>"
+          },
+          {
+            "name": "since",
+            "text": "3.2.0"
+          }
+        ],
+        "docs": "Export the given database to a JSON Object",
+        "complexTypes": [
+          "capStoreJson"
+        ],
+        "slug": "exporttojson"
+      },
+      {
+        "name": "getPluginVersion",
+        "signature": "() => Promise<{ version: string; }>",
+        "parameters": [],
+        "returns": "Promise<{ version: string; }>",
+        "tags": [
+          {
+            "name": "returns",
+            "text": "a Promise with version for this plugin"
+          },
+          {
+            "name": "throws",
+            "text": "An error if something went wrong"
+          }
+        ],
+        "docs": "Get the native Capacitor plugin version",
+        "complexTypes": [],
+        "slug": "getpluginversion"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "capOpenStorageOptions",
+      "slug": "capopenstorageoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "database",
+          "tags": [],
+          "docs": "The storage database name",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "table",
+          "tags": [],
+          "docs": "The storage table name",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "encrypted",
+          "tags": [],
+          "docs": "Set to true for database encryption",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "mode",
+          "tags": [],
+          "docs": "*\nSet the mode for database encryption\n[\"encryption\", \"secret\",\"newsecret\"]",
+          "complexTypes": [],
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "capStorageOptions",
+      "slug": "capstorageoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "database",
+          "tags": [],
+          "docs": "The storage name",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "capDataStorageResult",
+      "slug": "capdatastorageresult",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "result",
+          "tags": [],
+          "docs": "result set to true when successful else false",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "message",
+          "tags": [],
+          "docs": "a returned message",
+          "complexTypes": [],
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "capTableStorageOptions",
+      "slug": "captablestorageoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "table",
+          "tags": [],
+          "docs": "The storage table name",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "capDataStorageOptions",
+      "slug": "capdatastorageoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "key",
+          "tags": [],
+          "docs": "The data name",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "tags": [],
+          "docs": "The data value when required",
+          "complexTypes": [],
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "capValueResult",
+      "slug": "capvalueresult",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "value",
+          "tags": [],
+          "docs": "the data value for a given data key",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "capKeysResult",
+      "slug": "capkeysresult",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "keys",
+          "tags": [],
+          "docs": "the data key list as an Array",
+          "complexTypes": [],
+          "type": "string[]"
+        }
+      ]
+    },
+    {
+      "name": "capValuesResult",
+      "slug": "capvaluesresult",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "values",
+          "tags": [],
+          "docs": "the data values list as an Array",
+          "complexTypes": [],
+          "type": "string[]"
+        }
+      ]
+    },
+    {
+      "name": "capFilterStorageOptions",
+      "slug": "capfilterstorageoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "filter",
+          "tags": [],
+          "docs": "The filter data for filtering keys\n\n['%filter', 'filter', 'filter%'] for\n[starts with filter, contains filter, ends with filter]",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "capKeysValuesResult",
+      "slug": "capkeysvaluesresult",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "keysvalues",
+          "tags": [],
+          "docs": "the data keys/values list as an Array of {key:string,value:string}",
+          "complexTypes": [],
+          "type": "any[]"
+        }
+      ]
+    },
+    {
+      "name": "capTablesResult",
+      "slug": "captablesresult",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "tables",
+          "tags": [],
+          "docs": "the tables list as an Array",
+          "complexTypes": [],
+          "type": "string[]"
+        }
+      ]
+    },
+    {
+      "name": "capDataStorageChanges",
+      "slug": "capdatastoragechanges",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "changes",
+          "tags": [],
+          "docs": "the number of changes from an importFromJson command",
+          "complexTypes": [],
+          "type": "number | undefined"
+        }
+      ]
+    },
+    {
+      "name": "capStoreImportOptions",
+      "slug": "capstoreimportoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "jsonstring",
+          "tags": [],
+          "docs": "Set the JSON object to import",
+          "complexTypes": [],
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "capStoreJson",
+      "slug": "capstorejson",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "export",
+          "tags": [],
+          "docs": "an export JSON object",
+          "complexTypes": [
+            "JsonStore"
+          ],
+          "type": "JsonStore"
+        }
+      ]
+    },
+    {
+      "name": "JsonStore",
+      "slug": "jsonstore",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "database",
+          "tags": [],
+          "docs": "The database name",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "encrypted",
+          "tags": [],
+          "docs": "Set to true (database encryption) / false\niOS & Android only",
+          "complexTypes": [],
+          "type": "boolean"
+        },
+        {
+          "name": "tables",
+          "tags": [],
+          "docs": "*\nArray of Table (JsonTable)",
+          "complexTypes": [
+            "JsonTable"
+          ],
+          "type": "JsonTable[]"
+        }
+      ]
+    },
+    {
+      "name": "JsonTable",
+      "slug": "jsontable",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "name",
+          "tags": [],
+          "docs": "The database name",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "values",
+          "tags": [],
+          "docs": "*\nArray of Values (capDataStorageOptions)",
+          "complexTypes": [
+            "capDataStorageOptions"
+          ],
+          "type": "capDataStorageOptions[] | undefined"
+        }
+      ]
+    }
+  ],
+  "enums": [],
+  "typeAliases": [],
+  "pluginConfigs": []
+}

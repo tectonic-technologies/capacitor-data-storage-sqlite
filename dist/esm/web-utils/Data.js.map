@@ -1,0 +1,1 @@
+{"version":3,"file":"Data.js","sourceRoot":"","sources":["../../../src/web-utils/Data.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,IAAI;CAIhB","sourcesContent":["export class Data {\n  id?: number;\n  name?: string;\n  value?: string;\n}\n"]}

@@ -1,5 +1,5 @@
 # node files
-dist
+# dist
 node_modules
 
 # iOS files
@@ -15,7 +15,6 @@ DerivedData/
 .swiftpm/configuration/registries.json
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
-
 
 # macOS files
 .DS_Store
