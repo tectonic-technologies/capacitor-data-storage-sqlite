@@ -49,12 +49,26 @@ export interface CapgoCapacitorDataStorageSqlitePlugin {
      */
     set(options: capDataStorageOptions): Promise<void>;
     /**
+     * Store multiple key/value pairs at once
+     * @param options: capSetManyOptions
+     * @returns Promise<void>
+     * @since 7.2.17
+     */
+    setMany(options: capSetManyOptions): Promise<void>;
+    /**
      * Retrieve a data value for a given data key
      * @param options: capDataStorageOptions
      * @returns Promise<capValueResult>
      * @since 0.0.1
      */
     get(options: capDataStorageOptions): Promise<capValueResult>;
+    /**
+     * Retrieve multiple values for the supplied keys
+     * @param options: capGetManyOptions
+     * @returns Promise<capKeysValuesResult>
+     * @since 7.2.17
+     */
+    getMany(options: capGetManyOptions): Promise<capKeysValuesResult>;
     /**
      * Remove a data with given key
      * @param options: capDataStorageOptions
@@ -178,6 +192,18 @@ export interface capDataStorageOptions {
      * The data value when required
      */
     value?: string;
+}
+export interface capSetManyOptions {
+    /**
+     * Array of key/value pairs to store
+     */
+    values: capDataStorageOptions[];
+}
+export interface capGetManyOptions {
+    /**
+     * The data key list
+     */
+    keys: string[];
 }
 export interface capStorageOptions {
     /**

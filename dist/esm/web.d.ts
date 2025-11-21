@@ -1,5 +1,5 @@
 import { WebPlugin } from '@capacitor/core';
-import type { CapgoCapacitorDataStorageSqlitePlugin, capDataStorageOptions, capDataStorageResult, capFilterStorageOptions, capKeysResult, capKeysValuesResult, capTablesResult, capOpenStorageOptions, capTableStorageOptions, capValueResult, capValuesResult, capStorageOptions, capStoreJson, capDataStorageChanges, capStoreImportOptions } from './definitions';
+import type { CapgoCapacitorDataStorageSqlitePlugin, capDataStorageOptions, capDataStorageResult, capFilterStorageOptions, capGetManyOptions, capSetManyOptions, capKeysResult, capKeysValuesResult, capTablesResult, capOpenStorageOptions, capTableStorageOptions, capValueResult, capValuesResult, capStorageOptions, capStoreJson, capDataStorageChanges, capStoreImportOptions } from './definitions';
 export declare class CapgoCapacitorDataStorageSqliteWeb extends WebPlugin implements CapgoCapacitorDataStorageSqlitePlugin {
     private mDb;
     openStore(options: capOpenStorageOptions): Promise<void>;
@@ -9,6 +9,8 @@ export declare class CapgoCapacitorDataStorageSqliteWeb extends WebPlugin implem
     setTable(options: capTableStorageOptions): Promise<void>;
     set(options: capDataStorageOptions): Promise<void>;
     get(options: capDataStorageOptions): Promise<capValueResult>;
+    setMany(options: capSetManyOptions): Promise<void>;
+    getMany(options: capGetManyOptions): Promise<capKeysValuesResult>;
     remove(options: capDataStorageOptions): Promise<void>;
     clear(): Promise<void>;
     iskey(options: capDataStorageOptions): Promise<capDataStorageResult>;

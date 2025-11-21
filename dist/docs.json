@@ -225,6 +225,37 @@
         "slug": "set"
       },
       {
+        "name": "setMany",
+        "signature": "(options: capSetManyOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capSetManyOptions",
+            "type": "capSetManyOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capSetManyOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<void>"
+          },
+          {
+            "name": "since",
+            "text": "7.2.17"
+          }
+        ],
+        "docs": "Store multiple key/value pairs at once",
+        "complexTypes": [
+          "capSetManyOptions"
+        ],
+        "slug": "setmany"
+      },
+      {
         "name": "get",
         "signature": "(options: capDataStorageOptions) => Promise<capValueResult>",
         "parameters": [
@@ -255,6 +286,38 @@
           "capDataStorageOptions"
         ],
         "slug": "get"
+      },
+      {
+        "name": "getMany",
+        "signature": "(options: capGetManyOptions) => Promise<capKeysValuesResult>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": ": capGetManyOptions",
+            "type": "capGetManyOptions"
+          }
+        ],
+        "returns": "Promise<capKeysValuesResult>",
+        "tags": [
+          {
+            "name": "param",
+            "text": "options : capGetManyOptions"
+          },
+          {
+            "name": "returns",
+            "text": "Promise<capKeysValuesResult>"
+          },
+          {
+            "name": "since",
+            "text": "7.2.17"
+          }
+        ],
+        "docs": "Retrieve multiple values for the supplied keys",
+        "complexTypes": [
+          "capKeysValuesResult",
+          "capGetManyOptions"
+        ],
+        "slug": "getmany"
       },
       {
         "name": "remove",
@@ -741,6 +804,24 @@
       ]
     },
     {
+      "name": "capSetManyOptions",
+      "slug": "capsetmanyoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "values",
+          "tags": [],
+          "docs": "Array of key/value pairs to store",
+          "complexTypes": [
+            "capDataStorageOptions"
+          ],
+          "type": "capDataStorageOptions[]"
+        }
+      ]
+    },
+    {
       "name": "capValueResult",
       "slug": "capvalueresult",
       "docs": "",
@@ -753,6 +834,38 @@
           "docs": "the data value for a given data key",
           "complexTypes": [],
           "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "capKeysValuesResult",
+      "slug": "capkeysvaluesresult",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "keysvalues",
+          "tags": [],
+          "docs": "the data keys/values list as an Array of {key:string,value:string}",
+          "complexTypes": [],
+          "type": "any[]"
+        }
+      ]
+    },
+    {
+      "name": "capGetManyOptions",
+      "slug": "capgetmanyoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "keys",
+          "tags": [],
+          "docs": "The data key list",
+          "complexTypes": [],
+          "type": "string[]"
         }
       ]
     },
@@ -801,22 +914,6 @@
           "docs": "The filter data for filtering keys\n\n['%filter', 'filter', 'filter%'] for\n[starts with filter, contains filter, ends with filter]",
           "complexTypes": [],
           "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "capKeysValuesResult",
-      "slug": "capkeysvaluesresult",
-      "docs": "",
-      "tags": [],
-      "methods": [],
-      "properties": [
-        {
-          "name": "keysvalues",
-          "tags": [],
-          "docs": "the data keys/values list as an Array of {key:string,value:string}",
-          "complexTypes": [],
-          "type": "any[]"
         }
       ]
     },

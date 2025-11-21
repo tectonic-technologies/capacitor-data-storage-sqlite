@@ -404,6 +404,53 @@ var capacitorCapgoCapacitorDataStorageSqlite = (function (exports, core, localFo
                 return Promise.reject(`Get: ${err.message}`);
             }
         }
+        async setMany(options) {
+            const values = options === null || options === void 0 ? void 0 : options.values;
+            if (!Array.isArray(values)) {
+                return Promise.reject('SetMany: Must provide values array');
+            }
+            for (const entry of values) {
+                if (entry == null || typeof entry !== 'object') {
+                    return Promise.reject('SetMany: Each entry must be an object');
+                }
+                const key = entry.key;
+                const value = entry.value;
+                if (key == null || typeof key != 'string') {
+                    return Promise.reject('SetMany: Each entry must provide key as string');
+                }
+                if (value == null || typeof value != 'string') {
+                    return Promise.reject('SetMany: Each entry must provide value as string');
+                }
+                const data = new Data();
+                data.name = key;
+                data.value = value;
+                try {
+                    await this.mDb.set(data);
+                }
+                catch (err) {
+                    return Promise.reject(`SetMany: ${err.message}`);
+                }
+            }
+            return Promise.resolve();
+        }
+        async getMany(options) {
+            var _a;
+            const keys = options === null || options === void 0 ? void 0 : options.keys;
+            if (!Array.isArray(keys) || keys.some((key) => typeof key !== 'string')) {
+                return Promise.reject('GetMany: Must provide keys array of strings');
+            }
+            const ret = [];
+            for (const key of keys) {
+                try {
+                    const data = await this.mDb.get(key);
+                    ret.push({ key, value: (data === null || data === void 0 ? void 0 : data.value) != null ? data.value : '' });
+                }
+                catch (err) {
+                    return Promise.reject(`GetMany: ${(_a = err.message) !== null && _a !== void 0 ? _a : err}`);
+                }
+            }
+            return Promise.resolve({ keysvalues: ret });
+        }
         async remove(options) {
             const key = options.key;
             if (key == null || typeof key != 'string') {
