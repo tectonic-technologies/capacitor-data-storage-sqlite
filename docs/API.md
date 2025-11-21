@@ -5,7 +5,10 @@
 <p align="center" style="font-size:50px;color:red"><strong>CAPACITOR 3</strong></p><br>
 
 <p align="center">
-  Capacitor Data Storage SQlite Plugin is a custom Native Capacitor plugin providing a key-value permanent store for simple data of <strong>type string only</strong> to SQLite on IOS, Android and Electron platforms and to IndexDB for the Web platform.</p>
+  Capacitor Data Storage SQlite Plugin is a custom Native Capacitor plugin providing a key-value permanent store for
+  simple data of <strong>type string only</strong> to SQLite on IOS, Android and Electron platforms and to IndexDB for
+  the Web platform.
+</p>
 
 To store `JSON object`, you should manage conversion through `JSON.stringify` before storing and `JSON.parse` when retrieving the data
 
@@ -31,29 +34,31 @@ For both IOS and Android platforms, the store can be encrypted. The plugin uses 
 
 <docgen-index>
 
-* [`echo(...)`](#echo)
-* [`openStore(...)`](#openstore)
-* [`closeStore(...)`](#closestore)
-* [`isStoreOpen(...)`](#isstoreopen)
-* [`isStoreExists(...)`](#isstoreexists)
-* [`deleteStore(...)`](#deletestore)
-* [`setTable(...)`](#settable)
-* [`set(...)`](#set)
-* [`get(...)`](#get)
-* [`remove(...)`](#remove)
-* [`clear()`](#clear)
-* [`iskey(...)`](#iskey)
-* [`keys()`](#keys)
-* [`values()`](#values)
-* [`filtervalues(...)`](#filtervalues)
-* [`keysvalues()`](#keysvalues)
-* [`isTable(...)`](#istable)
-* [`tables()`](#tables)
-* [`deleteTable(...)`](#deletetable)
-* [`importFromJson(...)`](#importfromjson)
-* [`isJsonValid(...)`](#isjsonvalid)
-* [`exportToJson()`](#exporttojson)
-* [Interfaces](#interfaces)
+- [`echo(...)`](#echo)
+- [`openStore(...)`](#openstore)
+- [`closeStore(...)`](#closestore)
+- [`isStoreOpen(...)`](#isstoreopen)
+- [`isStoreExists(...)`](#isstoreexists)
+- [`deleteStore(...)`](#deletestore)
+- [`setTable(...)`](#settable)
+- [`set(...)`](#set)
+- [`setMany(...)`](#setmany)
+- [`get(...)`](#get)
+- [`getMany(...)`](#getmany)
+- [`remove(...)`](#remove)
+- [`clear()`](#clear)
+- [`iskey(...)`](#iskey)
+- [`keys()`](#keys)
+- [`values()`](#values)
+- [`filtervalues(...)`](#filtervalues)
+- [`keysvalues()`](#keysvalues)
+- [`isTable(...)`](#istable)
+- [`tables()`](#tables)
+- [`deleteTable(...)`](#deletetable)
+- [`importFromJson(...)`](#importfromjson)
+- [`isJsonValid(...)`](#isjsonvalid)
+- [`exportToJson()`](#exporttojson)
+- [Interfaces](#interfaces)
 
 </docgen-index>
 
@@ -76,8 +81,7 @@ Open a store
 
 **Since:** 0.0.1
 
---------------------
-
+---
 
 ### closeStore(...)
 
@@ -93,8 +97,7 @@ Close the Store
 
 **Since:** 3.0.0
 
---------------------
-
+---
 
 ### isStoreOpen(...)
 
@@ -112,8 +115,7 @@ Check if the Store is opened
 
 **Since:** 3.0.0
 
---------------------
-
+---
 
 ### isStoreExists(...)
 
@@ -131,8 +133,7 @@ Check if the Store exists
 
 **Since:** 3.0.0
 
---------------------
-
+---
 
 ### deleteStore(...)
 
@@ -148,8 +149,7 @@ Delete a store
 
 **Since:** 0.0.1
 
---------------------
-
+---
 
 ### setTable(...)
 
@@ -165,8 +165,7 @@ Set or Add a table to an existing store
 
 **Since:** 0.0.1
 
---------------------
-
+---
 
 ### set(...)
 
@@ -182,8 +181,23 @@ Store a data with given key and value
 
 **Since:** 0.0.1
 
---------------------
+---
 
+### setMany(...)
+
+```typescript
+setMany(options: capSetManyOptions) => Promise<void>
+```
+
+Store multiple key/value pairs in a single request
+
+| Param         | Type                                                            | Description                                          |
+| ------------- | --------------------------------------------------------------- | ---------------------------------------------------- |
+| **`options`** | <code><a href="#capsetmanyoptions">capSetManyOptions</a></code> | : <a href="#capsetmanyoptions">capSetManyOptions</a> |
+
+**Since:** 7.2.17
+
+---
 
 ### get(...)
 
@@ -201,8 +215,25 @@ Retrieve a data value for a given data key
 
 **Since:** 0.0.1
 
---------------------
+---
 
+### getMany(...)
+
+```typescript
+getMany(options: capGetManyOptions) => Promise<capKeysValuesResult>
+```
+
+Retrieve the values for multiple data keys in one call
+
+| Param         | Type                                                            | Description                                          |
+| ------------- | --------------------------------------------------------------- | ---------------------------------------------------- |
+| **`options`** | <code><a href="#capgetmanyoptions">capGetManyOptions</a></code> | : <a href="#capgetmanyoptions">capGetManyOptions</a> |
+
+**Returns:** <code>Promise&lt;<a href="#capkeysvaluesresult">capKeysValuesResult</a>&gt;</code>
+
+**Since:** 7.2.17
+
+---
 
 ### remove(...)
 
@@ -218,8 +249,7 @@ Remove a data with given key
 
 **Since:** 0.0.1
 
---------------------
-
+---
 
 ### clear()
 
@@ -231,8 +261,7 @@ Clear the Data Store (delete all keys)
 
 **Since:** 0.0.1
 
---------------------
-
+---
 
 ### iskey(...)
 
@@ -250,8 +279,7 @@ Check if a data key exists
 
 **Since:** 0.0.1
 
---------------------
-
+---
 
 ### keys()
 
@@ -265,8 +293,7 @@ Get the data key list
 
 **Since:** 0.0.1
 
---------------------
-
+---
 
 ### values()
 
@@ -280,8 +307,7 @@ Get the data value list
 
 **Since:** 0.0.1
 
---------------------
-
+---
 
 ### filtervalues(...)
 
@@ -299,8 +325,7 @@ Get the data value list for filter keys
 
 **Since:** 2.4.2
 
---------------------
-
+---
 
 ### keysvalues()
 
@@ -314,8 +339,7 @@ Get the data key/value pair list
 
 **Since:** 0.0.1
 
---------------------
-
+---
 
 ### isTable(...)
 
@@ -333,8 +357,7 @@ Check if a table exists
 
 **Since:** 3.0.0
 
---------------------
-
+---
 
 ### tables()
 
@@ -348,8 +371,7 @@ Get the table list for the current store
 
 **Since:** 3.0.0
 
---------------------
-
+---
 
 ### deleteTable(...)
 
@@ -365,8 +387,7 @@ Delete a table
 
 **Since:** 3.0.0
 
---------------------
-
+---
 
 ### importFromJson(...)
 
@@ -384,8 +405,7 @@ Import a database From a JSON
 
 **Since:** 3.2.0
 
---------------------
-
+---
 
 ### isJsonValid(...)
 
@@ -403,8 +423,7 @@ Check the validity of a JSON Object
 
 **Since:** 3.2.0
 
---------------------
-
+---
 
 ### exportToJson()
 
@@ -418,11 +437,9 @@ Export the given database to a JSON Object
 
 **Since:** 3.2.0
 
---------------------
-
+---
 
 ### Interfaces
-
 
 #### capEchoResult
 
@@ -430,30 +447,26 @@ Export the given database to a JSON Object
 | ----------- | ------------------- | --------------- |
 | **`value`** | <code>string</code> | String returned |
 
-
 #### capEchoOptions
 
 | Prop        | Type                | Description         |
 | ----------- | ------------------- | ------------------- |
 | **`value`** | <code>string</code> | String to be echoed |
 
-
 #### capOpenStorageOptions
 
-| Prop            | Type                 | Description                                                                 |
-| --------------- | -------------------- | --------------------------------------------------------------------------- |
-| **`database`**  | <code>string</code>  | The storage database name                                                   |
-| **`table`**     | <code>string</code>  | The storage table name                                                      |
-| **`encrypted`** | <code>boolean</code> | Set to true for database encryption                                         |
-| **`mode`**      | <code>string</code>  | * Set the mode for database encryption ["encryption", "secret","newsecret"] |
-
+| Prop            | Type                 | Description                                                                  |
+| --------------- | -------------------- | ---------------------------------------------------------------------------- |
+| **`database`**  | <code>string</code>  | The storage database name                                                    |
+| **`table`**     | <code>string</code>  | The storage table name                                                       |
+| **`encrypted`** | <code>boolean</code> | Set to true for database encryption                                          |
+| **`mode`**      | <code>string</code>  | \* Set the mode for database encryption ["encryption", "secret","newsecret"] |
 
 #### capStorageOptions
 
 | Prop           | Type                | Description      |
 | -------------- | ------------------- | ---------------- |
 | **`database`** | <code>string</code> | The storage name |
-
 
 #### capDataStorageResult
 
@@ -462,13 +475,11 @@ Export the given database to a JSON Object
 | **`result`**  | <code>boolean</code> | result set to true when successful else false |
 | **`message`** | <code>string</code>  | a returned message                            |
 
-
 #### capTableStorageOptions
 
 | Prop        | Type                | Description            |
 | ----------- | ------------------- | ---------------------- |
 | **`table`** | <code>string</code> | The storage table name |
-
 
 #### capDataStorageOptions
 
@@ -477,6 +488,17 @@ Export the given database to a JSON Object
 | **`key`**   | <code>string</code> | The data name                |
 | **`value`** | <code>string</code> | The data value when required |
 
+#### capSetManyOptions
+
+| Prop         | Type                                 | Description              |
+| ------------ | ------------------------------------ | ------------------------ |
+| **`values`** | <code>capDataStorageOptions[]</code> | Array of key/value pairs |
+
+#### capGetManyOptions
+
+| Prop       | Type                  | Description       |
+| ---------- | --------------------- | ----------------- |
+| **`keys`** | <code>string[]</code> | The data key list |
 
 #### capValueResult
 
@@ -484,13 +506,11 @@ Export the given database to a JSON Object
 | ----------- | ------------------- | ----------------------------------- |
 | **`value`** | <code>string</code> | the data value for a given data key |
 
-
 #### capKeysResult
 
 | Prop       | Type                  | Description                   |
 | ---------- | --------------------- | ----------------------------- |
 | **`keys`** | <code>string[]</code> | the data key list as an Array |
-
 
 #### capValuesResult
 
@@ -498,13 +518,11 @@ Export the given database to a JSON Object
 | ------------ | --------------------- | -------------------------------- |
 | **`values`** | <code>string[]</code> | the data values list as an Array |
 
-
 #### capFilterStorageOptions
 
 | Prop         | Type                | Description                                                                                                                     |
 | ------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | **`filter`** | <code>string</code> | The filter data for filtering keys ['%filter', 'filter', 'filter%'] for [starts with filter, contains filter, ends with filter] |
-
 
 #### capKeysValuesResult
 
@@ -512,13 +530,11 @@ Export the given database to a JSON Object
 | ---------------- | ------------------ | ------------------------------------------------------------------ |
 | **`keysvalues`** | <code>any[]</code> | the data keys/values list as an Array of {key:string,value:string} |
 
-
 #### capTablesResult
 
 | Prop         | Type                  | Description                 |
 | ------------ | --------------------- | --------------------------- |
 | **`tables`** | <code>string[]</code> | the tables list as an Array |
-
 
 #### capDataStorageChanges
 
@@ -526,13 +542,11 @@ Export the given database to a JSON Object
 | ------------- | ------------------- | ---------------------------------------------------- |
 | **`changes`** | <code>number</code> | the number of changes from an importFromJson command |
 
-
 #### capStoreImportOptions
 
 | Prop             | Type                | Description                   |
 | ---------------- | ------------------- | ----------------------------- |
 | **`jsonstring`** | <code>string</code> | Set the JSON object to import |
-
 
 #### capStoreJson
 
@@ -540,22 +554,20 @@ Export the given database to a JSON Object
 | ------------ | ----------------------------------------------- | --------------------- |
 | **`export`** | <code><a href="#jsonstore">JsonStore</a></code> | an export JSON object |
 
-
 #### JsonStore
 
 | Prop            | Type                     | Description                                                  |
 | --------------- | ------------------------ | ------------------------------------------------------------ |
 | **`database`**  | <code>string</code>      | The database name                                            |
 | **`encrypted`** | <code>boolean</code>     | Set to true (database encryption) / false iOS & Android only |
-| **`tables`**    | <code>JsonTable[]</code> | * Array of Table (<a href="#jsontable">JsonTable</a>)        |
-
+| **`tables`**    | <code>JsonTable[]</code> | \* Array of Table (<a href="#jsontable">JsonTable</a>)       |
 
 #### JsonTable
 
-| Prop         | Type                                 | Description                                                                    |
-| ------------ | ------------------------------------ | ------------------------------------------------------------------------------ |
-| **`name`**   | <code>string</code>                  | The database name                                                              |
-| **`values`** | <code>capDataStorageOptions[]</code> | * Array of Values (<a href="#capdatastorageoptions">capDataStorageOptions</a>) |
+| Prop         | Type                                 | Description                                                                     |
+| ------------ | ------------------------------------ | ------------------------------------------------------------------------------- |
+| **`name`**   | <code>string</code>                  | The database name                                                               |
+| **`values`** | <code>capDataStorageOptions[]</code> | \* Array of Values (<a href="#capdatastorageoptions">capDataStorageOptions</a>) |
 
 </docgen-api>
 

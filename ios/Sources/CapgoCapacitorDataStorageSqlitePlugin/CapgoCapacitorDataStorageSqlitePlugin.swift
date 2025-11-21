@@ -16,6 +16,8 @@ public class CapgoCapacitorDataStorageSqlitePlugin: CAPPlugin, CAPBridgedPlugin 
         CAPPluginMethod(name: "setTable", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "set", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "get", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "setMany", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getMany", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "remove", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "clear", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "keys", returnType: CAPPluginReturnPromise),
@@ -217,6 +219,49 @@ public class CapgoCapacitorDataStorageSqlitePlugin: CAPPlugin, CAPBridgedPlugin 
 
     }
 
+    // MARK: - SetMany
+
+    @objc func setMany(_ call: CAPPluginCall) {
+        guard let values = call.options["values"] as? [[String: String]] else {
+            retHandler.rResult(
+                call: call,
+                message: "setMany: Must provide an array of key/value entries")
+            return
+        }
+        var dataList: [Data] = []
+        for entry in values {
+            guard let key = entry["key"] else {
+                retHandler.rResult(
+                    call: call,
+                    message: "setMany: Each entry must include a key")
+                return
+            }
+            guard let value = entry["value"] else {
+                retHandler.rResult(
+                    call: call,
+                    message: "setMany: Each entry must include a value")
+                return
+            }
+            var data: Data = Data()
+            data.name = key
+            data.value = value
+            dataList.append(data)
+        }
+        do {
+            try implementation.setMany(dataList)
+            retHandler.rResult(call: call)
+            return
+        } catch CapgoCapacitorDataStorageSqliteError.failed(let message) {
+            let msg = "setMany: \(message)"
+            retHandler.rResult(call: call, message: msg)
+            return
+        } catch let error {
+            let msg = "setMany: \(error.localizedDescription)"
+            retHandler.rResult(call: call, message: msg)
+            return
+        }
+    }
+
     // MARK: - Get
 
     @objc func get(_ call: CAPPluginCall) {
@@ -241,6 +286,40 @@ public class CapgoCapacitorDataStorageSqlitePlugin: CAPPlugin, CAPBridgedPlugin 
             return
         }
 
+    }
+
+    // MARK: - GetMany
+
+    @objc func getMany(_ call: CAPPluginCall) {
+        guard let keys = call.options["keys"] as? [String] else {
+            retHandler.rDict(
+                call: call,
+                ret: ["keysvalues": []],
+                message: "getMany: Must provide keys")
+            return
+        }
+        if keys.isEmpty {
+            retHandler.rDict(call: call, ret: ["keysvalues": []])
+            return
+        }
+        do {
+            let results = try implementation.getMany(keys)
+            retHandler.rDict(call: call, ret: ["keysvalues": results])
+            return
+        } catch CapgoCapacitorDataStorageSqliteError.failed(let message) {
+            retHandler.rDict(
+                call: call,
+                ret: ["keysvalues": []],
+                message: "getMany: \(message)")
+            return
+        } catch let error {
+            let msg = "getMany: \(error.localizedDescription)"
+            retHandler.rDict(
+                call: call,
+                ret: ["keysvalues": []],
+                message: msg)
+            return
+        }
     }
 
     // MARK: - Remove

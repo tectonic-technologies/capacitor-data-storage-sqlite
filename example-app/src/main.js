@@ -32,6 +32,32 @@ return 'Value saved.';
               },
             },
 {
+              id: 'set-many',
+              label: 'Set many key/values',
+              description: 'Persist multiple key/value pairs in one request.',
+              inputs: [{
+                name: 'values',
+                label: 'JSON array of key/value objects',
+                type: 'textarea',
+                rows: 4,
+                value: JSON.stringify([
+                  { key: 'greeting', value: 'Hi from example-app' },
+                  { key: 'status', value: 'using setMany' },
+                ], null, 2),
+              }],
+              run: async (values) => {
+                const payload = values.values || '[]';
+                let parsed;
+                try {
+                  parsed = JSON.parse(payload);
+                } catch (err) {
+                  throw new Error('setMany: Enter a valid JSON array of key/value pairs.');
+                }
+                await plugin.setMany({ values: parsed });
+ return 'Bulk values saved.';
+              },
+            },
+{
               id: 'get-value',
               label: 'Get value',
               description: 'Reads a value for the provided key.',
@@ -41,6 +67,29 @@ return 'Value saved.';
 return result;
               },
             },
+{
+  id: 'get-many',
+  label: 'Get many keys',
+  description: 'Reads multiple keys in a single call.',
+  inputs: [{
+    name: 'keys',
+    label: 'JSON array of keys',
+    type: 'textarea',
+    rows: 3,
+    value: JSON.stringify(['greeting', 'status'], null, 2),
+  }],
+  run: async (values) => {
+    const payload = values.keys || '[]';
+    let parsed;
+    try {
+      parsed = JSON.parse(payload);
+    } catch (err) {
+      throw new Error('getMany: Enter a valid JSON array of keys.');
+    }
+    const result = await plugin.getMany({ keys: parsed });
+    return result;
+  },
+},
 {
   id: 'list-keys-values',
   label: 'List keys/values',
@@ -77,6 +126,8 @@ const actionSelect = document.getElementById('action-select');
 const formContainer = document.getElementById('action-form');
 const descriptionBox = document.getElementById('action-description');
 const runButton = document.getElementById('run-action');
+const quickSetManyButton = document.getElementById('run-set-many');
+const quickGetManyButton = document.getElementById('run-get-many');
 const output = document.getElementById('plugin-output');
 
 function buildForm(action) {
@@ -218,6 +269,29 @@ runButton.addEventListener('click', async () => {
     } else {
       output.textContent = JSON.stringify(result, null, 2);
     }
+  } catch (error) {
+    output.textContent = `Error: ${error?.message ?? error}`;
+  }
+});
+
+quickSetManyButton?.addEventListener('click', async () => {
+  const batch = [
+    { key: 'greeting', value: 'Hi from quick button' },
+    { key: 'status', value: 'button triggered' },
+  ];
+  try {
+    await plugin.setMany({ values: batch });
+    output.textContent = 'Quick setMany saved.';
+  } catch (error) {
+    output.textContent = `Error: ${error?.message ?? error}`;
+  }
+});
+
+quickGetManyButton?.addEventListener('click', async () => {
+  try {
+    const keys = ['greeting', 'status'];
+    const result = await plugin.getMany({ keys });
+    output.textContent = JSON.stringify(result, null, 2);
   } catch (error) {
     output.textContent = `Error: ${error?.message ?? error}`;
   }

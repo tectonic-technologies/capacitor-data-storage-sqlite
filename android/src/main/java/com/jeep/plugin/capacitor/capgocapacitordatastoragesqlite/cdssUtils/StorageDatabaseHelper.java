@@ -289,6 +289,32 @@ public class StorageDatabaseHelper {
         }
     }
 
+    public void setMany(List<Data> dataList) throws Exception {
+        if (_db.isOpen()) {
+            if (dataList == null || dataList.isEmpty()) {
+                return;
+            }
+            _db.beginTransaction();
+            try {
+                for (Data data : dataList) {
+                    if (data == null || data.name == null || data.value == null) {
+                        continue;
+                    }
+                    set(data);
+                }
+                _db.setTransactionSuccessful();
+            } catch (Exception e) {
+                String msg = "Failed in setMany" + e.getMessage();
+                Log.v(TAG, msg);
+                throw new Exception(msg);
+            } finally {
+                _db.endTransaction();
+            }
+        } else {
+            throw new Exception("Store not opened");
+        }
+    }
+
     /**
      * Iskey
      * Check if a key is existing in the store
@@ -424,6 +450,51 @@ public class StorageDatabaseHelper {
                 return data;
             } catch (Exception e) {
                 String msg = "Failed in keysvalues" + e.getMessage();
+                throw new Exception(msg);
+            } finally {
+                if (c != null) c.close();
+            }
+        } else {
+            throw new Exception("Store not opened");
+        }
+    }
+
+    public List<Data> getMany(List<String> keys) throws Exception {
+        Cursor c = null;
+        List<Data> data = new ArrayList<>();
+        if (_db.isOpen()) {
+            if (keys == null || keys.isEmpty()) {
+                return Collections.emptyList();
+            }
+            try {
+                StringBuilder placeholders = new StringBuilder();
+                for (int i = 0; i < keys.size(); i++) {
+                    placeholders.append("?");
+                    if (i < keys.size() - 1) {
+                        placeholders.append(",");
+                    }
+                }
+                String DATA_SELECT_QUERY =
+                    "SELECT * FROM " + this._tableName + " WHERE " + COL_NAME + " IN (" + placeholders + ") ORDER BY " + COL_NAME + ";";
+                Object[] bindArgs = keys.toArray(new Object[keys.size()]);
+                SimpleSQLiteQuery query = new SimpleSQLiteQuery(DATA_SELECT_QUERY, bindArgs);
+
+                c = (Cursor) _db.query(query);
+                if (c.getCount() > 0) {
+                    if (c.moveToFirst()) {
+                        do {
+                            Data newData = new Data();
+                            newData.name = c.getString(c.getColumnIndex(COL_NAME));
+                            newData.value = c.getString(c.getColumnIndex(COL_VALUE));
+                            data.add(newData);
+                        } while (c.moveToNext());
+                    }
+                } else {
+                    data = Collections.emptyList();
+                }
+                return data;
+            } catch (Exception e) {
+                String msg = "Failed in getMany" + e.getMessage();
                 throw new Exception(msg);
             } finally {
                 if (c != null) c.close();

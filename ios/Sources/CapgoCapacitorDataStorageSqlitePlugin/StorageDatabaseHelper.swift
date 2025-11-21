@@ -489,6 +489,73 @@ class StorageDatabaseHelper {
         }
     }
 
+    // MARK: - SetMany
+
+    func setMany(values: [Data]) throws {
+        if values.isEmpty {
+            return
+        }
+        if mDB != nil && isOpen {
+            for data in values {
+                try set(data: data)
+            }
+            return
+        } else {
+            throw StorageHelperError.setkey(message: "No store not opened" )
+        }
+    }
+
+    // MARK: - GetMany
+
+    func getMany(keys: [String]) throws -> [Data] {
+        var retArray: [Data] = [Data]()
+        if mDB != nil && isOpen {
+            guard keys.count > 0 else {
+                return retArray
+            }
+            let placeholders = keys.map { _ in "?" }.joined(separator: ",")
+            let selectStatement = """
+            SELECT * FROM \(tableName) WHERE \(COLNAME) IN (\(placeholders)) ORDER BY \(COLNAME);
+            """
+            var results: [[String: Any]] = []
+            do {
+                results = try UtilsSQLCipher.querySQL(mDB: self,
+                                                      sql: selectStatement,
+                                                      values: keys)
+                if results.count > 0 {
+                    for res in results {
+                        guard let name = res["name"] as? String else {
+                            let msg = "no returned key"
+                            throw StorageHelperError.getKeysValues(message: msg)
+                        }
+                        guard let value = res["value"] as? String else {
+                            let msg = "no returned value"
+                            throw StorageHelperError.getKeysValues(message: msg)
+                        }
+                        guard let mID = res["id"] as? Int64 else {
+                            let msg = "no returned id"
+                            throw StorageHelperError.getKeysValues(message: msg)
+                        }
+                        var data: Data = Data()
+                        data.id = mID
+                        data.name = name
+                        data.value = value
+                        retArray.append(data)
+                    }
+                }
+                return retArray
+            } catch UtilsSQLCipherError.querySQL(let message) {
+                throw StorageHelperError.getKeysValues(message: message)
+            } catch let error {
+                let msg = error.localizedDescription
+                throw StorageHelperError.getKeysValues(message: msg)
+            }
+        } else {
+            let msg = "No store not opened"
+            throw StorageHelperError.getKeysValues(message: msg)
+        }
+    }
+
     // MARK: - IsTable
 
     func isTable(name: String) throws -> Bool {
