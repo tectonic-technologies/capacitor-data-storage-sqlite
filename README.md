@@ -212,7 +212,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 * [`deleteStore(...)`](#deletestore)
 * [`setTable(...)`](#settable)
 * [`set(...)`](#set)
+* [`setMany(...)`](#setmany)
 * [`get(...)`](#get)
+* [`getMany(...)`](#getmany)
 * [`remove(...)`](#remove)
 * [`clear()`](#clear)
 * [`iskey(...)`](#iskey)
@@ -357,6 +359,23 @@ Store a data with given key and value
 --------------------
 
 
+### setMany(...)
+
+```typescript
+setMany(options: capSetManyOptions) => Promise<void>
+```
+
+Store multiple key/value pairs at once
+
+| Param         | Type                                                            | Description                                          |
+| ------------- | --------------------------------------------------------------- | ---------------------------------------------------- |
+| **`options`** | <code><a href="#capsetmanyoptions">capSetManyOptions</a></code> | : <a href="#capsetmanyoptions">capSetManyOptions</a> |
+
+**Since:** 7.2.17
+
+--------------------
+
+
 ### get(...)
 
 ```typescript
@@ -372,6 +391,25 @@ Retrieve a data value for a given data key
 **Returns:** <code>Promise&lt;<a href="#capvalueresult">capValueResult</a>&gt;</code>
 
 **Since:** 0.0.1
+
+--------------------
+
+
+### getMany(...)
+
+```typescript
+getMany(options: capGetManyOptions) => Promise<capKeysValuesResult>
+```
+
+Retrieve multiple values for the supplied keys
+
+| Param         | Type                                                            | Description                                          |
+| ------------- | --------------------------------------------------------------- | ---------------------------------------------------- |
+| **`options`** | <code><a href="#capgetmanyoptions">capGetManyOptions</a></code> | : <a href="#capgetmanyoptions">capGetManyOptions</a> |
+
+**Returns:** <code>Promise&lt;<a href="#capkeysvaluesresult">capKeysValuesResult</a>&gt;</code>
+
+**Since:** 7.2.17
 
 --------------------
 
@@ -649,11 +687,32 @@ Get the native Capacitor plugin version
 | **`value`** | <code>string</code> | The data value when required |
 
 
+#### capSetManyOptions
+
+| Prop         | Type                                 | Description                       |
+| ------------ | ------------------------------------ | --------------------------------- |
+| **`values`** | <code>capDataStorageOptions[]</code> | Array of key/value pairs to store |
+
+
 #### capValueResult
 
 | Prop        | Type                | Description                         |
 | ----------- | ------------------- | ----------------------------------- |
 | **`value`** | <code>string</code> | the data value for a given data key |
+
+
+#### capKeysValuesResult
+
+| Prop             | Type               | Description                                                        |
+| ---------------- | ------------------ | ------------------------------------------------------------------ |
+| **`keysvalues`** | <code>any[]</code> | the data keys/values list as an Array of {key:string,value:string} |
+
+
+#### capGetManyOptions
+
+| Prop       | Type                  | Description       |
+| ---------- | --------------------- | ----------------- |
+| **`keys`** | <code>string[]</code> | The data key list |
 
 
 #### capKeysResult
@@ -675,13 +734,6 @@ Get the native Capacitor plugin version
 | Prop         | Type                | Description                                                                                                                     |
 | ------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | **`filter`** | <code>string</code> | The filter data for filtering keys ['%filter', 'filter', 'filter%'] for [starts with filter, contains filter, ends with filter] |
-
-
-#### capKeysValuesResult
-
-| Prop             | Type               | Description                                                        |
-| ---------------- | ------------------ | ------------------------------------------------------------------ |
-| **`keysvalues`** | <code>any[]</code> | the data keys/values list as an Array of {key:string,value:string} |
 
 
 #### capTablesResult

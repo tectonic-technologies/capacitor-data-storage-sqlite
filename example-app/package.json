@@ -10,7 +10,9 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "android": "npm run build && npx cap run android --target=Pixel_9_Pro",
+    "ios": "npm run build && npx cap run ios --target=050732D3-CBCA-42F6-A8BD-DD8A487027F1"
   },
   "dependencies": {
     "@capacitor/core": "latest",

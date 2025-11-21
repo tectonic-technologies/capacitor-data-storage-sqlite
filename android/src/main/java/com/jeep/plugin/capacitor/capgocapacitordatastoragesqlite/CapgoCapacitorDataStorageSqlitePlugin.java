@@ -7,6 +7,13 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.jeep.plugin.capacitor.capgocapacitordatastoragesqlite.cdssUtils.Data;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @CapacitorPlugin(name = "CapgoCapacitorDataStorageSqlite")
 public class CapgoCapacitorDataStorageSqlitePlugin extends Plugin {
@@ -142,6 +149,53 @@ public class CapgoCapacitorDataStorageSqlitePlugin extends Plugin {
     }
 
     @PluginMethod
+    public void setMany(PluginCall call) {
+        if (!call.getData().has("values")) {
+            rHandler.retResult(call, null, "SetMany: Must provide values");
+            return;
+        }
+
+        JSArray valuesArray = call.getArray("values");
+        if (valuesArray == null) {
+            rHandler.retResult(call, null, "SetMany: values must be an array");
+            return;
+        }
+
+        List<Data> dataList = new ArrayList<>();
+        try {
+            for (int i = 0; i < valuesArray.length(); i++) {
+                // 👇 This is the key line
+                JSONObject entry = valuesArray.getJSONObject(i);
+
+                if (entry == null) {
+                    rHandler.retResult(call, null, "SetMany: Each entry must be an object");
+                    return;
+                }
+
+                String key = entry.getString("key");
+                String value = entry.getString("value");
+
+                Data data = new Data();
+                data.name = key;
+                data.value = value;
+                dataList.add(data);
+            }
+        } catch (Exception e) {
+            String msg = "SetMany: " + e.getMessage();
+            rHandler.retResult(call, null, msg);
+            return;
+        }
+
+        try {
+            implementation.setMany(dataList);
+            rHandler.retResult(call, null, null);
+        } catch (Exception e) {
+            String msg = "SetMany: " + e.getMessage();
+            rHandler.retResult(call, null, msg);
+        }
+    }
+
+    @PluginMethod
     public void get(PluginCall call) {
         if (!call.getData().has("key")) {
             rHandler.retValue(call, null, "Get: Must provide a key");
@@ -155,6 +209,42 @@ public class CapgoCapacitorDataStorageSqlitePlugin extends Plugin {
         } catch (Exception e) {
             String msg = "Get: " + e.getMessage();
             rHandler.retValue(call, null, msg);
+            return;
+        }
+    }
+
+    @PluginMethod
+    public void getMany(PluginCall call) {
+        if (!call.getData().has("keys")) {
+            rHandler.retJSObject(call, new JSObject(), "GetMany: Must provide keys");
+            return;
+        }
+        JSArray keysArray = call.getArray("keys");
+        if (keysArray == null) {
+            rHandler.retJSObject(call, new JSObject(), "GetMany: keys must be an array");
+            return;
+        }
+        List<String> keys = new ArrayList<>();
+        try {
+            for (int i = 0; i < keysArray.length(); i++) {
+                String key = keysArray.getString(i);
+                if (key != null) {
+                    keys.add(key);
+                }
+            }
+        } catch (Exception e) {
+            rHandler.retJSObject(call, new JSObject(), "GetMany: keys must be strings");
+            return;
+        }
+        try {
+            JSObject[] results = implementation.getMany(keys);
+            JSObject ret = new JSObject();
+            ret.put("keysvalues", new JSArray(results));
+            rHandler.retJSObject(call, ret, null);
+            return;
+        } catch (Exception e) {
+            String msg = "GetMany: " + e.getMessage();
+            rHandler.retJSObject(call, new JSObject(), msg);
             return;
         }
     }

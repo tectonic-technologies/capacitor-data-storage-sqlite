@@ -8,7 +8,9 @@ import com.jeep.plugin.capacitor.capgocapacitordatastoragesqlite.cdssUtils.Impor
 import com.jeep.plugin.capacitor.capgocapacitordatastoragesqlite.cdssUtils.StorageDatabaseHelper;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CapgoCapacitorDataStorageSqlite {
 
@@ -67,6 +69,19 @@ public class CapgoCapacitorDataStorageSqlite {
                 data.name = key;
                 data.value = value;
                 mDb.set(data);
+                return;
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        } else {
+            throw new Exception("mDb is not opened or null");
+        }
+    }
+
+    public void setMany(List<Data> dataList) throws Exception {
+        if (mDb != null && mDb.isOpen) {
+            try {
+                mDb.setMany(dataList);
                 return;
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
@@ -188,6 +203,36 @@ public class CapgoCapacitorDataStorageSqlite {
                     jsObjArray[i] = res;
                 }
                 return jsObjArray;
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        } else {
+            throw new Exception("mDb is not opened or null");
+        }
+    }
+
+    public JSObject[] getMany(List<String> keys) throws Exception {
+        if (mDb != null && mDb.isOpen) {
+            try {
+                if (keys == null || keys.isEmpty()) {
+                    return new JSObject[0];
+                }
+                List<Data> dataList = mDb.getMany(keys);
+                Map<String, String> valueMap = new HashMap<>();
+                for (Data data : dataList) {
+                    if (data.name != null) {
+                        valueMap.put(data.name, data.value != null ? data.value : "");
+                    }
+                }
+                JSObject[] result = new JSObject[keys.size()];
+                for (int i = 0; i < keys.size(); i++) {
+                    String key = keys.get(i);
+                    JSObject entry = new JSObject();
+                    entry.put("key", key);
+                    entry.put("value", valueMap.containsKey(key) ? valueMap.get(key) : "");
+                    result[i] = entry;
+                }
+                return result;
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
