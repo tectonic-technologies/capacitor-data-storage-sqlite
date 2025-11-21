@@ -8,8 +8,12 @@ import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.jeep.plugin.capacitor.capgocapacitordatastoragesqlite.cdssUtils.Data;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @CapacitorPlugin(name = "CapgoCapacitorDataStorageSqlite")
 public class CapgoCapacitorDataStorageSqlitePlugin extends Plugin {
@@ -150,25 +154,27 @@ public class CapgoCapacitorDataStorageSqlitePlugin extends Plugin {
             rHandler.retResult(call, null, "SetMany: Must provide values");
             return;
         }
+
         JSArray valuesArray = call.getArray("values");
         if (valuesArray == null) {
             rHandler.retResult(call, null, "SetMany: values must be an array");
             return;
         }
+
         List<Data> dataList = new ArrayList<>();
         try {
             for (int i = 0; i < valuesArray.length(); i++) {
-                JSObject entry = valuesArray.getJSObject(i);
-                if (!entry.has("key") || !entry.has("value")) {
-                    rHandler.retResult(call, null, "SetMany: Each entry requires key/value");
+                // 👇 This is the key line
+                JSONObject entry = valuesArray.getJSONObject(i);
+
+                if (entry == null) {
+                    rHandler.retResult(call, null, "SetMany: Each entry must be an object");
                     return;
                 }
+
                 String key = entry.getString("key");
                 String value = entry.getString("value");
-                if (key == null || value == null) {
-                    rHandler.retResult(call, null, "SetMany: key and value must be strings");
-                    return;
-                }
+
                 Data data = new Data();
                 data.name = key;
                 data.value = value;
@@ -179,14 +185,13 @@ public class CapgoCapacitorDataStorageSqlitePlugin extends Plugin {
             rHandler.retResult(call, null, msg);
             return;
         }
+
         try {
             implementation.setMany(dataList);
             rHandler.retResult(call, null, null);
-            return;
         } catch (Exception e) {
             String msg = "SetMany: " + e.getMessage();
             rHandler.retResult(call, null, msg);
-            return;
         }
     }
 

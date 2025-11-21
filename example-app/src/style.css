@@ -96,6 +96,26 @@ button#run-action:hover {
   filter: brightness(1.08);
 }
 
+.quick-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.quick-actions button {
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  border: none;
+  background: rgba(99, 102, 241, 0.15);
+  color: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid rgba(99, 102, 241, 0.4);
+}
+
+.quick-actions button:hover {
+  background: rgba(99, 102, 241, 0.3);
+}
+
 pre#plugin-output {
   margin: 0;
   padding: 1.2rem;
