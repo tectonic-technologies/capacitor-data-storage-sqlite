@@ -136,7 +136,7 @@ enum CapgoCapacitorDataStorageSqliteError: Error {
         }
     }
 
-    @objc func setMany(_ values: [Data]) throws {
+    func setMany(_ values: [Data]) throws {
         if values.isEmpty {
             return
         }

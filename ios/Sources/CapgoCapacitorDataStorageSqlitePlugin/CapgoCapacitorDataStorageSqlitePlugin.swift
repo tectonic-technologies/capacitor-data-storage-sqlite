@@ -303,19 +303,8 @@ public class CapgoCapacitorDataStorageSqlitePlugin: CAPPlugin, CAPBridgedPlugin 
             return
         }
         do {
-            let results = try implementation.getMany(keys: keys)
-            var values: [String: String] = [:]
-            for data in results {
-                if let name = data.name {
-                    values[name] = data.value ?? ""
-                }
-            }
-            var retArray: [[String: String]] = []
-            for key in keys {
-                let value = values[key] ?? ""
-                retArray.append(["key": key, "value": value])
-            }
-            retHandler.rDict(call: call, ret: ["keysvalues": retArray])
+            let results = try implementation.getMany(keys)
+            retHandler.rDict(call: call, ret: ["keysvalues": results])
             return
         } catch CapgoCapacitorDataStorageSqliteError.failed(let message) {
             retHandler.rDict(
